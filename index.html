@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>습관 기르기</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#ffffff">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#fff;color-scheme:light;--card:#fff;--line:#e6e6e6;--tx:#1e1e1e;--sub:#777;--ac:#e8702a;--dk:#1e1e1e;--bar:#ececec;--inp:#f3f3f3}
+
+
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:"Noto Sans KR","Noto Sans CJK KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;-webkit-tap-highlight-color:transparent}
+main{max-width:520px;margin:0 auto;padding:20px 16px 40px}
+.date{color:var(--sub);font-size:15px;margin:0 0 4px}
+h1{font-size:28px;margin:0 0 16px}
+.sum{background:var(--dk);color:#fff;border-radius:20px;padding:20px}
+.sum b{font-size:40px;color:var(--ac)}
+.sum span{font-size:16px;margin-left:6px}
+.bar{height:10px;border-radius:99px;background:var(--bar);overflow:hidden;margin-top:12px}
+.bar i{display:block;height:100%;background:var(--ac);border-radius:99px;transition:width .3s}
+.msg{margin:12px 4px 16px;color:var(--sub);font-size:15px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;margin-bottom:12px}
+.top{display:flex;align-items:center;gap:14px}
+.chk{width:39px;height:39px;border-radius:9px;position:relative;border:3px solid var(--ac);background:transparent;color:#fff;font-size:18px;flex:none;cursor:pointer}
+.chk::after{content:"";position:absolute;inset:-6px}
+.chk.on{background:var(--ac)}
+.info{flex:1;min-width:0}
+.name{font-size:19px;font-weight:700;overflow-wrap:anywhere}
+.meta{font-size:14px;color:var(--sub);margin-top:6px}
+.del{border:0;background:transparent;color:var(--sub);font-size:15px;min-width:48px;min-height:48px;border-radius:12px;cursor:pointer;font-family:inherit}
+.del.ask{color:#fff;background:#d33}
+.card .bar{margin-top:14px}
+.add{width:100%;min-height:56px;border:2px dashed var(--ac);background:transparent;color:var(--ac);border-radius:20px;font-size:17px;font-weight:700;font-family:inherit;cursor:pointer}
+.form{display:grid;gap:10px}
+.form input,.form select{min-height:48px;border:1px solid var(--line);border-radius:12px;background:var(--inp);color:var(--tx);font-size:16px;padding:0 12px;font-family:inherit}
+.form label{font-size:14px;color:var(--sub)}
+.btns{display:flex;gap:10px}
+.btns button{flex:1;min-height:52px;border-radius:14px;border:0;font-size:16px;font-weight:700;font-family:inherit;cursor:pointer}
+.ok{background:var(--ac);color:#fff}
+.no{background:var(--bar);color:var(--tx)}
+.empty{text-align:center;color:var(--sub);padding:24px 0}
+.cbtn{width:100%;min-height:56px;margin-top:12px;border:0;border-radius:16px;background:var(--bar);color:var(--tx);font-size:17px;font-weight:700;font-family:inherit;cursor:pointer}
+.calh{display:flex;align-items:center;justify-content:space-between;margin:8px 0 12px;font-size:18px}
+.nv{width:48px;height:48px;border:0;border-radius:50%;background:var(--bar);color:var(--tx);font-size:24px;cursor:pointer}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:12px}
+.wd{text-align:center;font-size:13px;color:var(--sub);padding:4px 0}
+.day{aspect-ratio:1;border-radius:12px;background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:15px}
+.day small{font-size:12px;font-weight:700}
+.day.part{background:rgba(232,112,42,.25);border-color:var(--ac)}
+.day.all{background:var(--ac);color:#fff;border-color:var(--ac)}
+.day.td{outline:2px solid var(--tx);outline-offset:1px}
+.hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.hd h1{margin:0}
+.pl{width:48px;height:48px;border-radius:12px;border:0;background:var(--ac);color:#fff;font-size:30px;line-height:1;cursor:pointer;font-family:inherit}
+.dr{display:flex;justify-content:flex-end;margin-top:6px}
+.del.ask{font-size:14px;padding:8px 12px;text-align:right}
+.top{gap:8px}
+.del{min-width:44px}
+.cam{width:48px;height:48px;border-radius:12px;border:1px solid var(--line);background:var(--bar);font-size:22px;cursor:pointer;padding:0;overflow:hidden;flex:none}
+.cam img{width:100%;height:100%;object-fit:cover;display:block}
+.gal{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:12px}
+.ph{position:relative;border-radius:14px;overflow:hidden;background:var(--card);border:1px solid var(--line)}
+.ph img{width:100%;aspect-ratio:1;object-fit:cover;display:block}
+.ph p{margin:0;padding:8px 10px;font-size:13px;color:var(--sub)}
+.ph button{position:absolute;top:6px;right:6px;min-width:44px;min-height:44px;border:0;border-radius:12px;background:rgba(0,0,0,.55);color:#fff;font-size:15px;cursor:pointer;font-family:inherit}
+.ph button.ask{background:#d33}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<input type="file" id="file" accept="image/*" hidden>
+<script>
+const K="habit-app-v1";
+const D=["일","월","화","수","목","금","토"];
+const ds=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const today=ds(new Date());
+const icon=n=>n.includes("스쿼트")||n.includes("운동")?"🏋️":n.includes("독서")||n.includes("책")?"📖":n.includes("필사")?"✍️":n.includes("물")?"💧":"✅";
+let H=[],ui={form:false,ask:null};
+try{const r=localStorage.getItem(K);H=r?JSON.parse(r):null}catch(e){H=null}
+if(!H){H=[["스쿼트 100개",3],["독서 10쪽",30],["필사",100]].map((a,i)=>({id:i+1,name:a[0],total:a[1],start:today,done:[]}))}
+function save(){try{localStorage.setItem(K,JSON.stringify(H));return true}catch(e){return false}}
+function dayNo(h){return Math.min(h.total,Math.floor((new Date(today)-new Date(h.start))/864e5)+1)}
+function streak(h){let n=0,d=new Date();if(!h.done.includes(ds(d)))d.setDate(d.getDate()-1);while(h.done.includes(ds(d))){n++;d.setDate(d.getDate()-1)}return n}
+function render(){
+if(ui.cal)return cal();if(ui.gal)return gal();
+const n=H.length,c=H.filter(h=>h.done.includes(today)).length,t=new Date();
+const msg=!n?"아래에서 첫 습관을 추가해 보세요":c==0?"오늘도 시작해 볼까요 💪":c==n?"오늘 다 끝냈어요 🎉":"좋아요, 계속 가요 👍";
+let s=`<p class="date">${t.getMonth()+1}월 ${t.getDate()}일 ${D[t.getDay()]}요일</p><div class="hd"><h1>오늘의 습관</h1><button class="pl" data-a="f" aria-label="습관 추가">＋</button></div>${ui.err?`<p class="msg" style="color:#d33">${ui.err}</p>`:""}
+<div class="sum"><b>${c}/${n}</b><span>완료</span><div class="bar"><i style="width:${n?c/n*100:0}%"></i></div></div><p class="msg">${msg}</p>`;
+s+=H.map(h=>{const on=h.done.includes(today),d=dayNo(h),e=d>=h.total?"🏆":"🔥";
+return `<div class="card"><div class="top"><button class="chk ${on?"on":""}" data-a="t" data-i="${h.id}" aria-label="오늘 했어요">${on?"✓":""}</button>
+<div class="info"><div class="name">${icon(h.name)} ${h.name}</div><div class="meta">${e} ${h.total}일 중 ${d}일째 · 연속 ${streak(h)}일</div></div>
+<button class="cam" data-a="ph" data-i="${h.id}" aria-label="사진 추가">${h.photos&&h.photos[today]?`<img src="${h.photos[today]}" alt="">`:"📷"}</button></div>
+<div class="bar"><i style="width:${d/h.total*100}%"></i></div><div class="dr"><button class="del ${ui.ask==h.id?"ask":""}" data-a="d" data-i="${h.id}">${ui.ask==h.id?"기록·사진도 사라져요. 한 번 더 눌러 삭제":"🗑 삭제"}</button></div></div>`}).join("");
+if(ui.form){s+=`<div class="card form"><label for="nm">습관 이름</label><input id="nm" maxlength="20" placeholder="예: 물 2리터 마시기">
+<label for="pd">도전 기간</label><select id="pd"><option value="3">작심삼일 (3일)</option><option value="7">7일</option><option value="21">21일</option><option value="30" selected>30일</option><option value="66">66일</option><option value="100">100일</option></select>
+<div class="btns"><button class="no" data-a="x">취소</button><button class="ok" data-a="s">추가</button></div></div>`}
+else{s+=`<button class="add" data-a="f">＋ 습관 추가</button>`}
+s+=`<button class="cbtn" data-a="c">📅 달력 보기</button><button class="cbtn" data-a="g">🖼️ 사진 모아보기</button>`;document.getElementById("app").innerHTML=s}
+document.getElementById("app").addEventListener("click",e=>{
+const b=e.target.closest("button");if(!b)return;const a=b.dataset.a,id=+b.dataset.i;ui.err="";
+if(a=="t"){const h=H.find(x=>x.id==id);h.done=h.done.includes(today)?h.done.filter(x=>x!=today):h.done.concat(today);ui.ask=null}
+else if(a=="d"){if(ui.ask==id){H=H.filter(x=>x.id!=id);ui.ask=null}else ui.ask=id}
+else if(a=="f"){ui.form=true;ui.ask=null}
+else if(a=="x"){ui.form=false}
+else if(a=="c"){const t=new Date();ui.cal={y:t.getFullYear(),m:t.getMonth()}}
+else if(a=="b"){ui.cal=null}
+else if(a=="ph"){ui.pick=id;document.getElementById("file").click()}
+else if(a=="g"){ui.gal=true}
+else if(a=="gb"){ui.gal=null}
+else if(a=="gd"){const k=b.dataset.k,q=id+"|"+k;if(ui.pask==q){delete H.find(x=>x.id==id).photos[k];ui.pask=null}else ui.pask=q}
+else if(a=="p"||a=="nx"){const dt=new Date(ui.cal.y,ui.cal.m+(a=="p"?-1:1),1);ui.cal={y:dt.getFullYear(),m:dt.getMonth()}}
+else if(a=="s"){const v=document.getElementById("nm").value.trim();if(!v){document.getElementById("nm").focus();return}
+H.push({id:Date.now(),name:v,total:+document.getElementById("pd").value,start:today,done:[]});ui.form=false}
+save();render();if(a=="f")document.getElementById("nm").scrollIntoView({block:"center"})});
+function gal(){
+const L=[];H.forEach(h=>Object.keys(h.photos||{}).forEach(k=>L.push([k,h])));L.sort((a,b)=>a[0]<b[0]?1:-1);
+document.getElementById("app").innerHTML=`<p class="date">내 폰에만 저장돼요</p><h1>🖼️ 사진 모아보기</h1><div class="gal">${L.map(([k,h])=>{const q=h.id+"|"+k;return `<div class="ph"><img src="${h.photos[k]}" alt=""><p>${k.slice(5).replace("-","/")} · ${h.name}</p><button class="${ui.pask==q?"ask":""}" data-a="gd" data-i="${h.id}" data-k="${k}">${ui.pask==q?"삭제?":"✕"}</button></div>`}).join("")}</div>${L.length?"":`<p class="empty">아직 사진이 없어요. 습관 카드의 📷를 눌러 추가해 보세요</p>`}<button class="add" data-a="gb">← 오늘의 습관으로</button>`}
+document.getElementById("file").addEventListener("change",e=>{const f=e.target.files[0];e.target.value="";if(!f||!ui.pick)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const s=Math.min(1,480/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext("2d").drawImage(im,0,0,c.width,c.height);const h=H.find(x=>x.id==ui.pick);if(!h)return;h.photos=h.photos||{};const old=h.photos[today];h.photos[today]=c.toDataURL("image/jpeg",.65);if(!save()){if(old)h.photos[today]=old;else delete h.photos[today];ui.err="저장 공간이 가득 찼어요. 사진 모아보기에서 오래된 사진을 지워주세요"}render()};im.src=r.result};r.readAsDataURL(f)});
+function cal(){
+const {y,m}=ui.cal,first=new Date(y,m,1).getDay(),len=new Date(y,m+1,0).getDate(),n=H.length,p=y+"-"+String(m+1).padStart(2,"0");
+let g=D.map(d=>`<div class="wd">${d}</div>`).join("")+"<div></div>".repeat(first);
+for(let i=1;i<=len;i++){const k=p+"-"+String(i).padStart(2,"0"),c=H.filter(h=>h.done.includes(k)).length;
+g+=`<div class="day ${k==today?"td":""} ${n&&c==n?"all":c?"part":""}"><span>${i}</span>${c?`<small>${c}</small>`:""}</div>`}
+const mc=H.reduce((a,h)=>a+h.done.filter(x=>x.startsWith(p)).length,0);
+document.getElementById("app").innerHTML=`<p class="date">기록 한눈에 보기</p><h1>📅 달력</h1><div class="calh"><button class="nv" data-a="p" aria-label="이전 달">‹</button><b>${y}년 ${m+1}월</b><button class="nv" data-a="nx" aria-label="다음 달">›</button></div><div class="cal">${g}</div><p class="msg">이 달에 체크한 횟수: ${mc}번 · 숫자는 그날 완료한 습관 수예요</p><button class="add" data-a="b">← 오늘의 습관으로</button>`}
+render();
+if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script>
+</body>
+</html>
